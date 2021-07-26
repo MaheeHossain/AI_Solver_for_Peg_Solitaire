@@ -1,0 +1,23 @@
+all: pegsol
+
+pegsol: peg_solitaire.c ai.o hashtable.o llist.o stack.o utils.o
+	gcc -O3 -o pegsol peg_solitaire.c ai.o hashtable.o llist.o stack.o utils.o -g -lm
+
+ai.o : ai.c ai.h
+	gcc -O3 -o ai.o -c -Wall ai.c
+
+hashtable.o: hashtable.c hashtable.h
+	gcc -O3 -o hashtable.o -c -Wall hashtable.c
+
+llist.o: llist.c llist.h
+	gcc -O3 -o llist.o -c -Wall llist.c
+
+stack.o: stack.c stack.h
+	gcc -O3 -o stack.o -c -Wall stack.c
+
+utils.o: utils.c utils.h layouts.h
+	gcc -O3 -o utils.o -c -Wall utils.c
+
+run: pegsol
+	./pegsol 0 AI 1000000 play_solution
+#	valgrind --leak-check=full --track-origins=yes ./pegsol 5 AI 10000
